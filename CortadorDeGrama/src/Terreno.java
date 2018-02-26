@@ -2,7 +2,8 @@
 public class Terreno {
 
 	private char[][] Mat = new char[5][7];
-
+	private int lin;
+	private int col;
 	public boolean atualizaTerreno(int lin, int col, char situacao) {
 
 		if (lin >= 5 || col >= 7)
@@ -55,7 +56,7 @@ public class Terreno {
 		Mat = mat;
 	}
 
-	public void subindo(int lin, int col, Terreno terreno) {
+	public void subindo(Terreno terreno) {
 		if (terreno.tamanhoCampo(lin - 1, col) && terreno.pegaPosicao(lin - 1, col) == '#') {
 			terreno.atualizaTerreno(lin, col, '#');
 			lin = lin - 1;
@@ -95,7 +96,23 @@ public class Terreno {
 	
 	}
 
-	public void descendo(int lin, int col, Terreno terreno) {
+	public int getLin() {
+		return lin;
+	}
+
+	public void setLin(int lin) {
+		this.lin = lin;
+	}
+
+	public int getCol() {
+		return col;
+	}
+
+	public void setCol(int col) {
+		this.col = col;
+	}
+
+	public void descendo(Terreno terreno) {
 		if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == '#') {
 			terreno.atualizaTerreno(lin, col, '#');
 			lin = lin + 1;
@@ -122,20 +139,11 @@ public class Terreno {
 					col = col - 1;
 				}
 
-			} else if (terreno.tamanhoCampo(lin - 1, col)) {
-				terreno.atualizaTerreno(lin - 1, col, 'O');
-				lin = lin - 1;
-				if (terreno.tamanhoCampo(lin, col + 1) && terreno.pegaPosicao(lin, col + 1) != 'f') {
-					terreno.atualizaTerreno(lin, col, '#');
-					terreno.atualizaTerreno(lin, col + 1, 'O');
-					col = col + 1;
-				}
-			}
+			} 
 		}
 
 	}
 
-	public void moveCortador() {
-	}
+	
 
 }
