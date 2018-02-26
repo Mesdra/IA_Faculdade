@@ -1,9 +1,12 @@
+import java.util.concurrent.Semaphore;
 
 public class Terreno {
 
 	private char[][] Mat = new char[5][7];
 	private int lin;
 	private int col;
+	private int finalizado;
+
 	public boolean atualizaTerreno(int lin, int col, char situacao) {
 
 		if (lin >= 5 || col >= 7)
@@ -65,13 +68,13 @@ public class Terreno {
 			terreno.atualizaTerreno(lin, col, '#');
 			lin = lin - 1;
 			terreno.atualizaTerreno(lin, col, 'O');
-		} else if (terreno.tamanhoCampo(lin- 1, col) && terreno.pegaPosicao(lin - 1, col) == 'f') {
+		} else if (terreno.tamanhoCampo(lin - 1, col) && terreno.pegaPosicao(lin - 1, col) == 'f') {
 			terreno.atualizaTerreno(lin, col, '#');
 			if (terreno.tamanhoCampo(lin, col + 1) && terreno.pegaPosicao(lin, col + 1) != 'f') {
 				terreno.atualizaTerreno(lin, col + 1, 'O');
 				col = col + 1;
 				for (int i = 0; i < 2; i++) {
-					if (terreno.tamanhoCampo(lin - 1, col) && terreno.pegaPosicao(lin-1, col) != 'f') {
+					if (terreno.tamanhoCampo(lin - 1, col) && terreno.pegaPosicao(lin - 1, col) != 'f') {
 						terreno.atualizaTerreno(lin, col, '#');
 						terreno.atualizaTerreno(lin - 1, col, 'O');
 						lin = lin + 1;
@@ -93,7 +96,7 @@ public class Terreno {
 				}
 			}
 		}
-	
+
 	}
 
 	public int getLin() {
@@ -113,37 +116,67 @@ public class Terreno {
 	}
 
 	public void descendo(Terreno terreno) {
-		if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == '#') {
-			terreno.atualizaTerreno(lin, col, '#');
-			lin = lin + 1;
-			terreno.atualizaTerreno(lin, col, 'O');
-		} else if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == 'g') {
-			terreno.atualizaTerreno(lin, col, '#');
-			lin = lin + 1;
-			terreno.atualizaTerreno(lin, col, 'O');
-		} else if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == 'f') {
-			terreno.atualizaTerreno(lin, col, '#');
-			if (terreno.tamanhoCampo(lin, col + 1) && terreno.pegaPosicao(lin, col + 1) != 'f') {
-				terreno.atualizaTerreno(lin, col + 1, 'O');
-				col = col + 1;
-				for (int i = 0; i < 2; i++) {
-					if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin+1, col) != 'f') {
-						terreno.atualizaTerreno(lin, col, '#');
-						terreno.atualizaTerreno(lin + 1, col, 'O');
-						lin = lin + 1;
-					}
-				}
-				if (terreno.tamanhoCampo(lin, col - 1) && terreno.pegaPosicao(lin, col - 1) != 'f') {
-					terreno.atualizaTerreno(lin, col, '#');
-					terreno.atualizaTerreno(lin, col - 1, 'O');
-					col = col - 1;
-				}
-
-			} 
-		}
-
-	}
-
+		boolean cond = false;
 	
+			if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == '#') {
+				terreno.atualizaTerreno(lin, col, '#');
+				lin = lin + 1;
+				terreno.atualizaTerreno(lin, col, 'O');
+			} else if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == 'g') {
+				terreno.atualizaTerreno(lin, col, '#');
+				lin = lin + 1;
+				terreno.atualizaTerreno(lin, col, 'O');
+			} else if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) == 'f') {
+				terreno.atualizaTerreno(lin, col, '#');
+
+				if (terreno.tamanhoCampo(lin, col + 1) && terreno.pegaPosicao(lin, col + 1) != 'f') {
+					terreno.atualizaTerreno(lin, col + 1, 'O');
+					col = col + 1;
+					finalizado ++;
+
+					for (int i = 0; i < 2; i++) {
+						if (terreno.tamanhoCampo(lin + 1, col) && terreno.pegaPosicao(lin + 1, col) != 'f') {
+							terreno.atualizaTerreno(lin, col, '#');
+							terreno.atualizaTerreno(lin + 1, col, 'O');
+							lin = lin + 1;
+							cond = true;
+						}
+					}
+					if (terreno.tamanhoCampo(lin, col - 1) && terreno.pegaPosicao(lin, col - 1) != 'f'
+							&& cond == true ) {
+						terreno.atualizaTerreno(lin, col, '#');
+						terreno.atualizaTerreno(lin, col - 1, 'O');
+						col = col - 1;
+						cond = false;
+						finalizado--;
+
+						if (terreno.tamanhoCampo(lin, col-1) && terreno.pegaPosicao(lin, col-1) != 'f' && finalizado >= 0 ) {
+							atualizaTerreno(lin, col, '#');
+							col = col-1;
+							finalizado --;
+							atualizaTerreno(lin, col, 'O');
+							if (terreno.pegaPosicao(lin-1, col ) != 'f') {
+								atualizaTerreno(lin, col, '#');
+								lin = lin-1;
+								atualizaTerreno(lin, col, 'O');
+
+							}else if(terreno.tamanhoCampo(lin + 1, col - 1) &&  terreno.pegaPosicao(lin + 1, col-1) != 'f' && finalizado >= 0  ) {
+								if(terreno.pegaPosicao(lin + 1, col) != 'f') {
+									terreno.atualizaTerreno(lin, col, '#');
+									lin = lin +1;
+									terreno.atualizaTerreno(lin, col, '#');
+									terreno.atualizaTerreno(lin, col-1, 'O');
+									col =col -1;
+									finalizado --;
+								}
+							}
+							
+						}
+					}
+
+				}
+			}
+		
+	}
 
 }

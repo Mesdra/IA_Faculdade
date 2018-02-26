@@ -34,11 +34,13 @@ public class Main {
 		while(cond  != 0) {
 			sc.next();
 			if(terreno.getLin() == 0 && terreno.getCol() != 0) {
+			terreno.atualizaTerreno(terreno.getLin(), terreno.getCol(),'#');
 			  condSb  = 1;
 			  terreno .setCol(terreno.getCol()+1); 
 			}
 			if(terreno.getLin() == 4)
 			{
+			  terreno.atualizaTerreno(terreno.getLin(), terreno.getCol(),'#');
 			  condSb = 2;
 			  terreno .setCol(terreno.getCol()+1); 
 			}
