@@ -96,7 +96,7 @@ public class Mochila {
 
 	public String toString() {
 
-		String res = "Peso maximo: " + pesoMaximo + "\nLista de objetos: ";
+		String res = "Peso maximo: " + pesoMaximo +"valor"+ qualidade + "\nLista de objetos: ";
        for (int i = 0; i < listaObjetos.length; i++) {
     	   res += listaObjetos[i].toString();
 	}

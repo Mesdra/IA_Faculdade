@@ -27,7 +27,7 @@ public class ProblemaMochila {
  
         listaObjetos[2] = (new Objeto(7,2,"0011")); 
  
-        listaObjetos[3] = (new Objeto(8,4,"0100")); 
+        listaObjetos[3] = (new Objeto(3,4,"0100")); 
  
         listaObjetos[4] = (new Objeto(4,2,"0101"));
         
@@ -35,7 +35,7 @@ public class ProblemaMochila {
 
         listaObjetos[6] = (new Objeto(5,6,"0111"));
         
-        listaObjetos[7] = (new Objeto(8,2,"1000"));
+        listaObjetos[7] = (new Objeto(4,2,"1000"));
         listaObjetos[8] = (new Objeto(0,0,"0000"));
         
         Objeto[] lista1 = new Objeto[8]; ;
@@ -53,13 +53,13 @@ public class ProblemaMochila {
         for (int i = 0; i < lista1.length; i++) {
         	valor = valor + lista1[i].valor;
 		}
-    
+        System.out.println("valor anterior = " + valor);
         Mochila mochila = new Mochila(lista1, peso, valor); 
         listaMochilas[0] = (mochila);
-        System.out.println(mochila.qualidade); 
+       
         peso = 30;
         lista2[0]= (listaObjetos[4]);
-        lista2[1]= (listaObjetos[8]);
+        lista2[1]= (listaObjetos[2]);
         lista2[2]= (listaObjetos[8]);
         lista2[3]= (listaObjetos[6]);
         lista2[4]= (listaObjetos[7]);
@@ -70,7 +70,7 @@ public class ProblemaMochila {
         for (int i = 0; i < lista1.length; i++) {
         	valor = valor + lista1[i].valor;
 		}
-    
+        System.out.println("valor anterior2 = " + valor);
         mochila = new Mochila(lista2, peso, valor); 
         listaMochilas[1] = mochila;
         
