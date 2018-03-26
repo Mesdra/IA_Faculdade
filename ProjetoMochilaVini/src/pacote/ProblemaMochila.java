@@ -7,7 +7,8 @@ package pacote;
 
 import java.util.LinkedList; 
  
-import java.util.List; 
+import java.util.List;
+import java.util.Scanner; 
  
  
  
@@ -73,13 +74,21 @@ public class ProblemaMochila {
         System.out.println("valor anterior2 = " + valor);
         mochila = new Mochila(lista2, peso, valor); 
         listaMochilas[1] = mochila;
-        
+        boolean condicao = true;
         Qualidade  qualidade = new Qualidade();
-        Mochila[] filhos= qualidade.geralFilhos(listaMochilas);
+        Scanner s = new Scanner(System.in);
+        listaMochilas[2] = mochila.novaMochila();
         
+        while(condicao){
+        int idade = s.nextInt();
+        Mochila[] filhos= qualidade.geralFilhos(listaMochilas);
+        listaMochilas[0] = filhos[0];
+        listaMochilas[1] = filhos[1];
+        System.out.println("\n\n");
         System.out.println(filhos[0].toString());
         System.out.println(filhos[1].toString());
- 
+        System.out.println(filhos[2].toString());
+        }
         
  
     } 

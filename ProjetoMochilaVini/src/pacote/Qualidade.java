@@ -151,7 +151,7 @@ public class Qualidade {
 		return filho;
 	}
 
-	private Objeto novoObjeto(int nextInt) {
+	public Objeto novoObjeto(int nextInt) {
 		Objeto ob = new Objeto();
 		ob = ItemString(nextInt);
 

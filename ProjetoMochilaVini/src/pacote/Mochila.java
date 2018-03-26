@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import java.util.List;
+import java.util.Random;
 
 public class Mochila {
 
@@ -92,6 +93,21 @@ public class Mochila {
 
 		return res;
 
+	}
+	public Mochila novaMochila(){
+		
+		 Objeto[] lista = new Objeto[8];
+		 Qualidade q = new Qualidade();
+		 Random rand = new Random();
+		 for (int i = 0; i < lista.length; i++) {
+			lista[i] = q.novoObjeto(rand.nextInt(8));
+		}
+		 int valor = 0;
+		 for (int j = 0; j < lista.length;j++) {
+				valor += lista[j].valor;
+			}
+		// arrumar 
+		return new Mochila(lista, 25, valor);
 	}
 
 	public String toString() {
