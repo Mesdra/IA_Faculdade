@@ -94,20 +94,46 @@ public class Mochila {
 		return res;
 
 	}
-	public Mochila novaMochila(){
-		
+	public Mochila[] novaMochilas(){
+		 Mochila[] mochilas = new Mochila[2]; 
 		 Objeto[] lista = new Objeto[8];
 		 Qualidade q = new Qualidade();
 		 Random rand = new Random();
 		 for (int i = 0; i < lista.length; i++) {
-			lista[i] = q.novoObjeto(rand.nextInt(8));
+			lista[i] = q.novoObjeto(8);
 		}
+		 int cond = 2 + rand.nextInt(6);
+		 for (int i = 0; i < cond; i++) {
+				lista[rand.nextInt(8)] = q.novoObjeto(rand.nextInt(8));
+			}
+		 
 		 int valor = 0;
 		 for (int j = 0; j < lista.length;j++) {
 				valor += lista[j].valor;
+				
 			}
-		// arrumar 
-		return new Mochila(lista, 25, valor);
+		mochilas[0] = new Mochila(lista, 25, valor);
+		
+		 Objeto[] lista2 = new Objeto[8];
+		
+
+		 for (int i = 0; i < lista2.length; i++) {
+			lista2[i] = q.novoObjeto(8);
+		}
+		 int cond2 = 2 + rand.nextInt(5);
+		 for (int i = 0; i < cond2; i++) {
+				lista2[rand.nextInt(8)] = q.novoObjeto(rand.nextInt(8));
+			}
+		 
+		 int valor2 = 0;
+		 for (int j = 0; j < lista2.length;j++) {
+				valor2 += lista2[j].valor;
+				
+			}
+		mochilas[1] = new Mochila(lista2, 25, valor2);
+		
+		
+		return q.validarFilhos(mochilas);
 	}
 
 	public String toString() {
