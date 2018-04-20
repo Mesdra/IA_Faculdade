@@ -167,17 +167,17 @@ public class Qualidade {
 		case 2:
 			return new Objeto(7, 2, "0011");
 		case 3:
-			return new Objeto(8, 4, "0100");
+			return new Objeto(3, 4, "0100");
 		case 4:
 			return new Objeto(4, 2, "0101");
 		case 5:
 			return new Objeto(4, 3, "0110");
 		case 6:
-			return new Objeto(5, 6, "0111");
+			return new Objeto(2, 6, "0111");
 		case 7:
-			return new Objeto(8, 2, "1000");
+			return new Objeto(5, 2, "1000");
 		case 8:
-			return new Objeto(8, 2, "0000");
+			return new Objeto(0, 0, "0000");
 		default:
 			return new Objeto(9, 9, "9999");
 		}

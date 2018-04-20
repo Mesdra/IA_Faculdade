@@ -1,97 +1,85 @@
 package pacote;
 
+import java.util.Scanner;
 
- 
- 
- 
+public class ProblemaMochila {
 
-import java.util.LinkedList; 
- 
-import java.util.List;
-import java.util.Scanner; 
- 
- 
- 
-public class ProblemaMochila { 
- 
- 
- 
-    public static void main(String[] args) { 
- 
-        int peso = 25; 
-        Mochila[] listaMochilas = new Mochila[10];
-        Objeto[] listaObjetos = new Objeto[10]; 
- 
-        listaObjetos[0] = new Objeto(5,3,"0001"); 
- 
-        listaObjetos[1] = (new Objeto(4,3,"0010")); 
- 
-        listaObjetos[2] = (new Objeto(7,2,"0011")); 
- 
-        listaObjetos[3] = (new Objeto(3,4,"0100")); 
- 
-        listaObjetos[4] = (new Objeto(4,2,"0101"));
-        
-        listaObjetos[5] = (new Objeto(4,3,"0110"));
+	public static void main(String[] args) {
 
-        listaObjetos[6] = (new Objeto(5,6,"0111"));
-        
-        listaObjetos[7] = (new Objeto(4,2,"1000"));
-        listaObjetos[8] = (new Objeto(0,0,"0000"));
-        
-        Objeto[] lista1 = new Objeto[8]; ;
-        Objeto[] lista2 = new Objeto[8];;
-        
-        lista1[0]= (listaObjetos[0]);
-        lista1[1]= (listaObjetos[5]);
-        lista1[2]= (listaObjetos[8]);
-        lista1[3]= (listaObjetos[3]);
-        lista1[4]= (listaObjetos[8]);
-        lista1[5]= (listaObjetos[2]);
-        lista1[6]= (listaObjetos[8]);
-        lista1[7]= (listaObjetos[8]);
-        int valor = 0;
-        for (int i = 0; i < lista1.length; i++) {
-        	valor = valor + lista1[i].valor;
+		int peso = 25;
+		Mochila[] listaMochilas = new Mochila[10];
+		Objeto[] listaObjetos = new Objeto[10];
+		Qualidade q = new Qualidade();
+		listaObjetos[0] = new Objeto(5, 3, "0001");
+
+		listaObjetos[1] = (new Objeto(4, 3, "0010"));
+
+		listaObjetos[2] = (new Objeto(7, 2, "0011"));
+
+		listaObjetos[3] = (new Objeto(3, 4, "0100"));
+
+		listaObjetos[4] = (new Objeto(4, 2, "0101"));
+
+		listaObjetos[5] = (new Objeto(4, 3, "0110"));
+
+		listaObjetos[6] = (new Objeto(5, 6, "0111"));
+
+		listaObjetos[7] = (new Objeto(4, 2, "1000"));
+		listaObjetos[8] = (new Objeto(0, 0, "0000"));
+
+		Mochila mochila = new Mochila(listaObjetos, 45, 45);
+		Mochila[] mochilas = new Mochila[20];
+		Scanner s = new Scanner(System.in);
+		for (int i = 0; i < 20; i++) {
+			Mochila[] criacao = mochila.novaMochilas();
+			mochilas[i] = criacao[0];
+			i++;
+			mochilas[i] = criacao[1];
+
 		}
-        System.out.println("valor anterior = " + valor);
-        Mochila mochila = new Mochila(lista1, peso, valor); 
-        listaMochilas[0] = (mochila);
-       
-        peso = 30;
-        lista2[0]= (listaObjetos[4]);
-        lista2[1]= (listaObjetos[2]);
-        lista2[2]= (listaObjetos[8]);
-        lista2[3]= (listaObjetos[6]);
-        lista2[4]= (listaObjetos[7]);
-        lista2[5]= (listaObjetos[8]);
-        lista2[6]= (listaObjetos[1]);
-        lista2[7]= (listaObjetos[8]);
-        valor = 0;
-        for (int i = 0; i < lista1.length; i++) {
-        	valor = valor + lista1[i].valor;
+		for (int i = 0; i < 20; i++) {
+
+			System.out.println(mochilas[i].toString());
+
 		}
-        System.out.println("valor anterior2 = " + valor);
-        mochila = new Mochila(lista2, peso, valor); 
-        listaMochilas[1] = mochila;
-        boolean condicao = true;
-        Qualidade  qualidade = new Qualidade();
-        Scanner s = new Scanner(System.in);
-        listaMochilas[2] = mochila.novaMochila();
-        
-        while(condicao){
-        int idade = s.nextInt();
-        Mochila[] filhos= qualidade.geralFilhos(listaMochilas);
-        listaMochilas[0] = filhos[0];
-        listaMochilas[1] = filhos[1];
-        System.out.println("\n\n");
-        System.out.println(filhos[0].toString());
-        System.out.println(filhos[1].toString());
-        System.out.println(filhos[2].toString());
-        }
-        
- 
-    } 
- 
-} 
- 
+
+		boolean condicao = true;
+		while (condicao) {
+			
+		
+			int condd2 = s.nextInt();
+			int[] qualidades = new int[20];
+			for (int i = 0; i < 20; i++) {
+				Mochila atual = mochilas[i];
+				int dado = 0;
+				for (int j = 0; j < 8; j++) {
+					dado += atual.qualidade;
+				}
+				qualidades[i] = dado;
+			}
+			
+		 
+			Mochila[] filhos = new Mochila[20];
+			for (int i = 0; i < 20; i++) {
+				Mochila[] pais = new Mochila[2];
+				pais[0] = mochilas[i];
+				i++;
+				pais[1] = mochilas[i];
+				Mochila[] filho =  q.geralFilhos(pais);
+				i--;
+			  filhos[i] = filho[0];
+			  i++;
+			  filhos[i] = filho[1];
+				
+			}
+			for (int i = 0; i < 20; i++) {
+
+				System.out.println(filhos[i].toString());
+
+			}
+			
+		}
+
+	}
+
+}
