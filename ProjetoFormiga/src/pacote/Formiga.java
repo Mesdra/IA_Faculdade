@@ -3,7 +3,7 @@ package pacote;
 public class Formiga {
 	float coFerormonio;
 	int tamanhoMochila;
-	Objeto[] listaObjetos;
+	Objeto[] listaObjetos  = new Objeto[20];
 	int posicao=0;
 	int quantMochila =0;
 	int valorMochila =0;
