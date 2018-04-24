@@ -7,7 +7,7 @@ public class Objeto {
 	int peso;
 	int valor;
 	Formiga formiga;
-	public Objeto(int peso,int valor, int fer) {
+	public Objeto(int peso,int valor, float fer) {
 		this.peso = peso;
 		this.valor = valor;
 		this.ferormonio = fer;
@@ -23,22 +23,26 @@ public class Objeto {
 	}
 	public Formiga encherMochilas(Formiga formiga, Objeto[][] matrisObjetos) {
 		Random rand = new Random();
-		int x = rand.nextInt(5);
-		int y = rand.nextInt(5);
+		int x = rand.nextInt(10);
+		int y = rand.nextInt(10);
 				
 				matrisObjetos[x][y].formiga = formiga;
 		
 		return procurarMelhorNo(matrisObjetos,x,y,formiga);
 	}
+	void somaFer(int fer){
+		this.ferormonio +=fer;
+		
+	}
 
 	private Formiga procurarMelhorNo(Objeto[][] matrisObjetos, int x, int y,Formiga formiga) {
 		boolean fim  = true;
 		while(fim) {
-		float[] qualidade = new float[10] ;
+		float[] qualidade = new float[8] ;
 		int distancia = 0;
 		int o =0;
-		for(int i =0;i < 5;i++) {
-			for(int j =0;j < 5;j++) {
+		for(int i =0;i < 10;i++) {
+			for(int j =0;j < 10;j++) {
 				if(matrisObjetos[i][j].valor != 0 && matrisObjetos[i][j].formiga.tamanhoMochila == -1) {
 					distancia = (x+y) - (i+j);
 					distancia = Math.abs(distancia);
@@ -57,8 +61,12 @@ public class Objeto {
 		}
 		
 		int contador = 0 ;
-		for(int i =0;i < 5;i++) {
-			for(int j =0;j < 5;j++) {
+		if(conts == 0) {
+			Random rand = new Random();;
+			melhor =  rand.nextInt(qualidade.length);
+		}
+		for(int i =0;i < 10;i++) {
+			for(int j =0;j < 10;j++) {
 				if(matrisObjetos[i][j].valor != 0  && matrisObjetos[i][j].formiga.tamanhoMochila == -1) {
 					if(contador == melhor) {
 						formiga.add(matrisObjetos[i][j]);
@@ -96,6 +104,29 @@ public class Objeto {
 		
 		}
 		return formiga;
+	}
+
+	
+
+	public Objeto[][] addFeromonio(Objeto[][] matrisObjetos, Formiga[] formigas, Objeto[] dados) {
+		
+		for(int i = 0;i < formigas.length;i++){
+			Formiga formiga = formigas[i];
+			for(int o=0;o < formiga.listaObjetos.length;o++) {
+				for(int k =0;k < 10;k++) {
+					for(int j =0;j < 10;j++) {
+						if(matrisObjetos[k][j].peso == formiga.listaObjetos[i].peso && matrisObjetos[k][j].valor == formiga.listaObjetos[i].valor) {
+							for(int n = 0;n < dados.length;n++){
+								if(dados[n].peso == formiga.listaObjetos[i].peso && dados[n].valor == formiga.listaObjetos[i].valor) {
+									dados[n].ferormonio += formiga.listaObjetos[i].ferormonio;
+								}
+							}
+						}
+					}}
+			}
+		}
+		
+		return matrisObjetos;
 	}
 
 	
